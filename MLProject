@@ -1,4 +1,4 @@
-name: CI-Retraining-Model
+name: student-performance-ci
 
 conda_env: conda.yaml
 
