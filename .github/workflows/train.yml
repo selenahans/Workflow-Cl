@@ -1,0 +1,25 @@
+name: Train Model CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Miniconda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        auto-activate-base: false
+
+    - name: Install MLflow
+      run: |
+        pip install mlflow==2.19.0
+
+    - name: Run MLflow Project
+      run: |
+        mlflow run .

@@ -1,4 +1,4 @@
-name: student-performance-ci
+name: smsml-training
 
 conda_env: conda.yaml
 

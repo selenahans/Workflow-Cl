@@ -1,6 +1,8 @@
 import pandas as pd
 import mlflow
 import mlflow.sklearn
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -8,12 +10,13 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-mlflow.set_tracking_uri("file:./mlruns")
-mlflow.set_experiment("Eksperimen_SML_Selena")
+
+# mlflow.set_experiment("Eksperimen_SML_Selena")
 # mlflow.set_tracking_uri("https://dagshub.com/selenahans/Eksperimen-SML-Selena.mlflow")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH = os.path.join(BASE_DIR, "Student_Performance_Preprocessed.csv")
+DATA_PATH = os.path.join(BASE_DIR, "data", "Student_Performance_Preprocessed.csv")
+
 df = pd.read_csv(DATA_PATH)
 
 df = df.fillna(0)
@@ -24,11 +27,11 @@ y = df["Performance Index"]
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
-
+mlflow.sklearn.autolog()
 with mlflow.start_run():
 
    
-    mlflow.sklearn.autolog()
+    
 
     model = RandomForestRegressor(
         n_estimators=150,
