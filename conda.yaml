@@ -1,6 +1,7 @@
 name: smsml-env
 channels:
   - conda-forge
+  - defaults
 dependencies:
   - python=3.12.7
   - pip
@@ -9,3 +10,4 @@ dependencies:
       - pandas
       - scikit-learn
       - joblib
+      - matplotlib

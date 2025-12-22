@@ -11,15 +11,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Miniconda
-      uses: conda-incubator/setup-miniconda@v3
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        auto-activate-base: false
+        python-version: "3.12"
 
-    - name: Install MLflow
+    - name: Install dependencies
       run: |
-        pip install mlflow==2.19.0
+        pip install mlflow==2.19.0 pandas scikit-learn joblib matplotlib numpy
 
     - name: Run MLflow Project
       run: |
-        mlflow run .
+        mlflow run . --env-manager=local
