@@ -1,13 +1,41 @@
-name: smsml-env
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - python=3.12.7
-  - pip
-  - pip:
-      - mlflow==2.19.0
-      - pandas
-      - scikit-learn
-      - joblib
-      - matplotlib
+# name: smsml-env
+# channels:
+#   - conda-forge
+#   - defaults
+# dependencies:
+#   - python=3.12.7
+#   - pip
+#   - pip:
+#       - mlflow==2.19.0
+#       - pandas
+#       - scikit-learn
+#       - joblib
+#       - matplotlib
+
+name: Train Model CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12.7"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r Membangun_model/requirements.txt
+
+    - name: Run training script
+      run: |
+        python Membangun_model/modelling.py
